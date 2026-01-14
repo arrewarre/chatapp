@@ -40,6 +40,10 @@ const readTextFile = (file) => {
 
 const readPdfFile = async (file) => {
     const arrayBuffer = await file.arrayBuffer();
+
+    // Create a copy of the arrayBuffer for base64 conversion before it gets detached
+    const arrayBufferCopy = arrayBuffer.slice(0);
+
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     let fullText = '';
 
@@ -50,10 +54,16 @@ const readPdfFile = async (file) => {
         fullText += `[Page ${i}] ${pageText}\n\n`;
     }
 
+    // Convert the copied ArrayBuffer to base64 for storage and preview
+    const base64 = btoa(
+        new Uint8Array(arrayBufferCopy).reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+
     return {
         name: file.name,
         content: fullText,
-        type: 'pdf'
+        type: 'pdf',
+        pdfData: base64 // Store base64 PDF data for preview
     };
 };
 

@@ -21,13 +21,13 @@ export const generateResponse = async (history, message, context = "", images = 
 
     try {
         const contextPrompt = context
-            ? `Gebruik de volgende bronnen om de vraag van de gebruiker te beantwoorden. Als het antwoord niet in de bronnen staat, vermeld dat dan.
-            
-            Citeer je bronnen door te verwijzen naar [[Source X]] aan het einde van relevante zinnen.
-            Gebruik Markdown voor opmaak: **vetgedrukt** voor belangrijke concepten, lijsten voor opsommingen, en tabellen indien nodig om data te vergelijken.
-            Bijvoorbeeld: "Dit is een feit [[Source 1]]." of "Volgens [[Source 2]] is dit waar."
+            ? `Use the following sources to answer the user's question. If the answer is not in the sources, mention that.
 
-            Bronnen:
+            Cite your sources by referring to [[Source X]] at the end of relevant sentences.
+            Use Markdown for formatting: **bold** for important concepts, lists for enumerations, and tables if needed to compare data.
+            Example: "This is a fact [[Source 1]]." or "According to [[Source 2]] this is true."
+
+            Sources:
             ${context}\n\n`
             : "";
 
@@ -126,7 +126,7 @@ export const generateSummary = async (text) => {
 export const generateStudyGuide = async (text) => {
     if (!ai) throw new Error("Gemini API not initialized");
 
-    const prompt = `Maak een studiegids van de volgende tekst. Voeg belangrijke termen, discussievragen en een korte quiz toe:\n\n${text.substring(0, 30000)}`;
+    const prompt = `Create a study guide from the following text. Include important terms, discussion questions, and a short quiz:\n\n${text.substring(0, 30000)}`;
 
     const response = await ai.models.generateContent({
         model: MODEL_NAME,
@@ -139,7 +139,7 @@ export const generateStudyGuide = async (text) => {
 export const generateFAQ = async (text) => {
     if (!ai) throw new Error("Gemini API not initialized");
 
-    const prompt = `Genereer een lijst met Veelgestelde Vragen (FAQ) op basis van de volgende tekst:\n\n${text.substring(0, 30000)}`;
+    const prompt = `Generate a list of Frequently Asked Questions (FAQ) based on the following text:\n\n${text.substring(0, 30000)}`;
 
     const response = await ai.models.generateContent({
         model: MODEL_NAME,

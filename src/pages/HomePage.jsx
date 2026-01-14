@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Book, MoreVertical, Moon, Sun } from 'lucide-react';
+import { Plus, Search, Book } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';

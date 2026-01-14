@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Plus, FileText, Trash2, Link as LinkIcon, Upload, Image as ImageIcon } from 'lucide-react';
+import { Plus, FileText, Trash2, Image as ImageIcon } from 'lucide-react';
 import { processFile } from '../utils/fileProcessor';
 
 const SourcePanel = ({ sources, setSources, onSourceClick }) => {
@@ -16,6 +16,8 @@ const SourcePanel = ({ sources, setSources, onSourceClick }) => {
                     title: file.name,
                     type: processedFile.type,
                     content: processedFile.content,
+                    pdfData: processedFile.pdfData, // Include PDF data if available
+                    mimeType: processedFile.mimeType, // Include mime type for images
                     createdAt: new Date().toISOString()
                 }]);
             } catch (error) {
