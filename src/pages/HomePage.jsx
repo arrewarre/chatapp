@@ -39,18 +39,18 @@ const HomePage = ({ theme, toggleTheme }) => {
     );
 
     return (
-        <div className="min-h-screen pb-10">
+        <div className="min-h-screen-dynamic pb-10 safe-area-inset-x">
             <Header toggleTheme={toggleTheme} theme={theme} />
 
-            <main className="max-w-6xl mx-auto px-6 pt-12">
-                <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-                    <div>
-                        <h1 className="text-4xl font-normal mb-2 tracking-tight">Welcome to NotebookLM</h1>
-                        <p className="text-muted-foreground text-lg">Your personalized AI research assistant</p>
+            <main className="max-w-6xl mx-auto px-4 xs:px-6 pt-8 xs:pt-12">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+                    <div className="w-full sm:w-auto">
+                        <h1 className="text-fluid-4xl font-normal mb-2 tracking-tight">Welcome to NotebookLM</h1>
+                        <p className="text-muted-foreground text-fluid-lg">Your personalized AI research assistant</p>
                     </div>
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 mt-6 md:mt-0 font-medium"
+                        className="flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 xs:px-6 py-3 rounded-2xl hover:bg-opacity-90 transition-all shadow-lg mouse:hover:shadow-xl mouse:hover:-translate-y-1 w-full sm:w-auto font-medium touch-target"
                     >
                         <div className="bg-white/20 p-1 rounded-full">
                             <Plus size={20} />
@@ -59,27 +59,27 @@ const HomePage = ({ theme, toggleTheme }) => {
                     </button>
                 </div>
 
-                <div className="mb-8 relative">
+                <div className="mb-6 sm:mb-8 relative">
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
                     <input
                         type="text"
                         placeholder="Search your notebooks..."
-                        className="w-full pl-12 pr-4 py-4 rounded-2xl border border-border bg-card text-card-foreground focus:ring-2 focus:ring-primary focus:outline-none transition-shadow shadow-sm"
+                        className="w-full pl-12 pr-4 py-3 xs:py-4 rounded-2xl border border-border bg-card text-card-foreground focus:ring-2 focus:ring-primary focus:outline-none transition-shadow shadow-sm text-fluid-base"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
 
                 {filteredNotebooks.length === 0 ? (
-                    <div className="text-center py-20 opacity-60">
-                        <div className="w-24 h-24 bg-muted rounded-full mx-auto flex items-center justify-center mb-4">
-                            <Book size={40} />
+                    <div className="text-center py-12 xs:py-20 opacity-60">
+                        <div className="w-20 h-20 xs:w-24 xs:h-24 bg-muted rounded-full mx-auto flex items-center justify-center mb-4">
+                            <Book size={36} className="xs:w-10 xs:h-10" />
                         </div>
-                        <h3 className="text-xl font-medium mb-2">No notebooks yet</h3>
-                        <p>Create your first notebook to get started</p>
+                        <h3 className="text-fluid-xl font-medium mb-2">No notebooks yet</h3>
+                        <p className="text-fluid-base">Create your first notebook to get started</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
                         {filteredNotebooks.map(notebook => (
                             <NotebookCard
                                 key={notebook.id}

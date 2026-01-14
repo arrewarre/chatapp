@@ -17,15 +17,15 @@ const ChatPanel = ({ messages, onSendMessage, isLoading, suggestedQuestions }) =
     }, [messages, isLoading]);
 
     return (
-        <div className="h-full flex flex-col bg-background relative">
-            <div className="flex-1 overflow-y-auto p-6 custom-scrollbar space-y-8">
+        <div className="h-full flex flex-col bg-background relative overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-4 xs:p-6 custom-scrollbar space-y-6 xs:space-y-8">
                 {messages.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-center opacity-80 mt-10">
-                        <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 text-primary">
-                            <Sparkles size={32} />
+                    <div className="h-full flex flex-col items-center justify-center text-center opacity-80 mt-6 xs:mt-10 px-2">
+                        <div className="w-14 h-14 xs:w-16 xs:h-16 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-4 xs:mb-6 text-primary">
+                            <Sparkles size={28} className="xs:w-8 xs:h-8" />
                         </div>
-                        <h2 className="text-2xl font-semibold mb-2">Welcome to your notebook</h2>
-                        <p className="text-muted-foreground max-w-md mb-8">
+                        <h2 className="text-fluid-2xl font-semibold mb-2">Welcome to your notebook</h2>
+                        <p className="text-muted-foreground max-w-md mb-6 xs:mb-8 text-fluid-base">
                             Upload sources to the left to get started. Once you have sources, I can summarize them, answer questions, or generate study guides.
                         </p>
 
@@ -102,9 +102,9 @@ const ChatPanel = ({ messages, onSendMessage, isLoading, suggestedQuestions }) =
                 )}
             </div>
 
-            <div className="p-4 bg-background/80 backdrop-blur-md border-t border-border flex flex-col gap-3">
+            <div className="p-3 xs:p-4 bg-background/80 backdrop-blur-md border-t border-border flex flex-col gap-2 xs:gap-3 safe-area-inset-bottom">
                 {/* Quick Actions */}
-                <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+                <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar -mx-1 px-1">
                     {['Summarize', 'Explain', 'Key Points', 'Critique'].map((action) => (
                         <button
                             key={action}

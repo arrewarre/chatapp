@@ -179,18 +179,18 @@ const NotebookPage = ({ theme, toggleTheme }) => {
     if (!notebook) return null;
 
     return (
-        <div className="h-screen flex flex-col bg-background text-foreground overflow-hidden">
+        <div className="h-screen-dynamic flex flex-col bg-background text-foreground overflow-hidden safe-area-inset-x">
             <Header
                 theme={theme}
                 toggleTheme={toggleTheme}
                 title={notebook.title}
             />
 
-            <div className="flex-1 flex min-h-0">
-                <PanelGroup direction="horizontal" autoSaveId="notebook-panels-v3">
+            <div className="flex-1 flex min-h-0 overflow-hidden">
+                <PanelGroup direction="horizontal" autoSaveId="notebook-panels-v3" className="flex-1">
                     {/* Left Panel: Sources */}
-                    <Panel defaultSize={33} minSize={20} collapsible={false}>
-                        <div className="h-full">
+                    <Panel defaultSize={33} minSize={15} collapsible={true} collapsedSize={0}>
+                        <div className="h-full overflow-hidden">
                             {previewSource ? (
                                 <SourcePreview
                                     source={previewSource}
@@ -210,8 +210,8 @@ const NotebookPage = ({ theme, toggleTheme }) => {
                     <PanelResizeHandle className="w-px bg-border hover:bg-primary transition-colors data-[resize-handle-active]:bg-primary" />
 
                     {/* Center Panel: Chat */}
-                    <Panel defaultSize={34} minSize={20} collapsible={false}>
-                        <div className="h-full">
+                    <Panel defaultSize={34} minSize={25} collapsible={false}>
+                        <div className="h-full overflow-hidden">
                             <ChatPanel
                                 messages={messages}
                                 onSendMessage={handleSendMessage}
@@ -224,8 +224,8 @@ const NotebookPage = ({ theme, toggleTheme }) => {
                     <PanelResizeHandle className="w-px bg-border hover:bg-primary transition-colors data-[resize-handle-active]:bg-primary" />
 
                     {/* Right Panel: Studio */}
-                    <Panel defaultSize={33} minSize={20} collapsible={false}>
-                        <div className="h-full">
+                    <Panel defaultSize={33} minSize={15} collapsible={true} collapsedSize={0}>
+                        <div className="h-full overflow-hidden">
                             {generatedContent ? (
                                 <GeneratedContent
                                     content={generatedContent}
