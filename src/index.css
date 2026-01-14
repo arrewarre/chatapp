@@ -5,7 +5,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   ADAPTIVE LAYOUT & CROSS-BROWSER COMPATIBILITY
+   ============================================ */
+
 :root {
+  /* Dynamic viewport height with fallback */
+  --vh: 1vh;
+  --dvh: 1dvh;
+
+  /* Safe area insets for notched devices */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+
+  /* Fluid typography scale */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-xl: clamp(1.15rem, 1rem + 0.75vw, 1.25rem);
+  --text-2xl: clamp(1.4rem, 1.2rem + 1vw, 1.5rem);
+  --text-3xl: clamp(1.7rem, 1.4rem + 1.5vw, 1.875rem);
+  --text-4xl: clamp(2rem, 1.5rem + 2.5vw, 2.25rem);
+
+  /* Touch target minimum size */
+  --touch-target-min: 44px;
+
+  /* Spacing scale for responsive layouts */
+  --spacing-responsive: clamp(1rem, 0.5rem + 2vw, 1.5rem);
+
+  /* Container max widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1400px;
+
+  /* Color variables */
   --background: 255 255 255;
   --foreground: 30 30 30;
   --card: 255 255 255;
@@ -193,4 +231,302 @@ body {
 [data-resize-handle-active],
 [data-panel-resize-handle-enabled]:hover {
   background-color: rgb(var(--primary)) !important;
+}
+
+/* ============================================
+   CROSS-BROWSER SCROLLBAR STYLES
+   ============================================ */
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--muted-foreground) / 0.3) transparent;
+}
+
+/* Webkit (Chrome, Safari, Edge) scrollbar styling - enhanced */
+.custom-scrollbar::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--muted-foreground) / 0.5);
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ============================================
+   REDUCED MOTION PREFERENCES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .notebook-card:hover {
+    transform: none;
+  }
+
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   MOBILE-FIRST RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Dynamic viewport height for mobile browsers */
+.h-screen-dynamic {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.min-h-screen-dynamic {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Safe area padding utilities */
+.safe-area-inset-top {
+  padding-top: var(--safe-area-inset-top);
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.safe-area-inset-left {
+  padding-left: var(--safe-area-inset-left);
+}
+
+.safe-area-inset-right {
+  padding-right: var(--safe-area-inset-right);
+}
+
+.safe-area-inset-x {
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+}
+
+.safe-area-inset-y {
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* Touch-friendly tap targets */
+.touch-target {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+}
+
+/* Fluid text sizes */
+.text-fluid-xs { font-size: var(--text-xs); }
+.text-fluid-sm { font-size: var(--text-sm); }
+.text-fluid-base { font-size: var(--text-base); }
+.text-fluid-lg { font-size: var(--text-lg); }
+.text-fluid-xl { font-size: var(--text-xl); }
+.text-fluid-2xl { font-size: var(--text-2xl); }
+.text-fluid-3xl { font-size: var(--text-3xl); }
+.text-fluid-4xl { font-size: var(--text-4xl); }
+
+/* ============================================
+   MOBILE LAYOUT UTILITIES
+   ============================================ */
+
+/* Stack panels on mobile */
+@media (max-width: 768px) {
+  [data-panel-group-direction="horizontal"] {
+    flex-direction: column !important;
+  }
+
+  [data-panel] {
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  [data-panel-resize-handle-enabled] {
+    width: 100% !important;
+    height: 4px !important;
+    cursor: row-resize !important;
+  }
+
+  [data-panel-resize-handle-enabled]::before {
+    left: 0 !important;
+    right: 0 !important;
+    top: -3px !important;
+    bottom: -3px !important;
+  }
+
+  /* Adjust modal for mobile */
+  .modal-container {
+    padding: 1rem;
+  }
+
+  /* Better touch scrolling */
+  .overflow-y-auto,
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 480px) {
+  .container-responsive {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ============================================
+   BACKDROP FILTER FALLBACK
+   ============================================ */
+
+@supports not (backdrop-filter: blur(12px)) {
+  .glass-panel,
+  .backdrop-blur-md,
+  .backdrop-blur-sm {
+    background: rgb(var(--card) / 0.95) !important;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --border: 30 30 30;
+  }
+
+  .dark {
+    --border: 226 232 240;
+  }
+
+  * {
+    border-width: 2px;
+  }
+}
+
+/* ============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets on touch devices */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Show hover states on focus for touch */
+  .group:focus-within .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+
+  /* Disable hover effects that don't work well on touch */
+  .notebook-card:hover {
+    transform: none;
+  }
+
+  .notebook-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+
+  header,
+  .no-print,
+  [data-panel-resize-handle-enabled] {
+    display: none !important;
+  }
+
+  .prose {
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* ============================================
+   FOCUS VISIBLE STYLES FOR ACCESSIBILITY
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================
+   CONTAINER QUERY SUPPORT (WHERE AVAILABLE)
+   ============================================ */
+
+@supports (container-type: inline-size) {
+  .container-query-parent {
+    container-type: inline-size;
+  }
+
+  @container (max-width: 400px) {
+    .container-query-stack {
+      flex-direction: column;
+    }
+  }
+}
+
+/* ============================================
+   NO SCROLLBAR UTILITY (FOR HORIZONTAL SCROLL)
+   ============================================ */
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
