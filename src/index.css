@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import 'highlight.js/styles/github-dark.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 255 255 255;
+  --foreground: 30 30 30;
+  --card: 255 255 255;
+  --card-foreground: 30 30 30;
+  --popover: 255 255 255;
+  --popover-foreground: 30 30 30;
+  --primary: 37 99 235;
+  /* Blue 600 */
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249;
+  /* Slate 100 */
+  --secondary-foreground: 15 23 42;
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139;
+  --accent: 236 253 245;
+  /* Emerald 50 */
+  --accent-foreground: 16 185 129;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 37 99 235;
+  --radius: 1rem;
+
+  /* Notebook Colors */
+  --color-1: 219 234 254;
+  /* Blue 100 */
+  --color-1-fg: 30 64 175;
+  --color-2: 220 252 231;
+  /* Green 100 */
+  --color-2-fg: 22 101 52;
+  --color-3: 254 249 195;
+  /* Yellow 100 */
+  --color-3-fg: 133 77 14;
+  --color-4: 254 226 226;
+  /* Red 100 */
+  --color-4-fg: 153 27 27;
+  --color-5: 243 232 255;
+  /* Purple 100 */
+  --color-5-fg: 107 33 168;
+}
+
+.dark {
+  --background: 15 23 42;
+  --foreground: 226 232 240;
+  --card: 30 41 59;
+  --card-foreground: 226 232 240;
+  --popover: 30 41 59;
+  --popover-foreground: 226 232 240;
+  --primary: 59 130 246;
+  /* Blue 500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 30 41 59;
+  --secondary-foreground: 226 232 240;
+  --muted: 30 41 59;
+  --muted-foreground: 148 163 184;
+  --accent: 30 41 59;
+  --accent-foreground: 226 232 240;
+  --destructive: 127 29 29;
+  --destructive-foreground: 255 255 255;
+  --border: 51 65 85;
+  --input: 51 65 85;
+  --ring: 59 130 246;
+
+  /* Notebook Colors Dark */
+  --color-1: 30 58 138;
+  --color-1-fg: 219 234 254;
+  --color-2: 20 83 45;
+  --color-2-fg: 220 252 231;
+  --color-3: 113 63 18;
+  --color-3-fg: 254 249 195;
+  --color-4: 127 29 29;
+  --color-4-fg: 254 226 226;
+  --color-5: 88 28 135;
+  --color-5-fg: 243 232 255;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+}
+
+.notebook-card {
+  transition: all 0.3s ease;
+}
+
+.notebook-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel {
+  background: rgba(var(--card), 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--border), 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(var(--muted-foreground));
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--foreground));
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* React Resizable Panels */
+[data-panel-group] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+[data-panel-group-direction="horizontal"] {
+  flex-direction: row;
+}
+
+[data-panel] {
+  overflow: hidden;
+}
+
+[data-panel-resize-handle-enabled] {
+  flex: 0 0 auto;
+  position: relative;
+  outline: none;
+  touch-action: none;
+}
+
+[data-panel-resize-handle-enabled]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  right: -3px;
+  cursor: col-resize;
+}
+
+[data-resize-handle-active],
+[data-panel-resize-handle-enabled]:hover {
+  background-color: rgb(var(--primary)) !important;
+}

@@ -1,0 +1,7 @@
+NotebookLM is an AI-powered research assistant developed by Google. It allows users to upload documents (PDFs, text files, etc.) and then asks questions about them.
+Key features include:
+1. Source grounding: Answers are based strictly on uploaded content.
+2. Citations: It provides references to where information was found.
+3. Audio Overview: It can generate a podcast-style conversation about the sources.
+4. Privacy: Data is not used to train the base model.
+NotebookLM mimics a virtual research assistant that helps synthesize information.
